@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flores Para Ti 🌻❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<style>
+/* Reset & body */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Poppins', sans-serif; overflow:hidden; background:#FF4DA6; }
+
+/* Background hearts */
+#hearts { position:fixed; width:100%; height:100%; top:0; left:0; pointer-events:none; }
+
+/* Canvas */
+.canvas {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background: #FFF3DC;
+  overflow:hidden;
+}
+
+/* Tree trunk */
+.trunk {
+  position:absolute;
+  bottom:10%;
+  width: 10px;
+  height: 0;
+  background: #5C3B1E;
+  border-radius:5px;
+  transform-origin: bottom center;
+}
+
+/* Flowers container */
+#flowers { position:absolute; bottom:10%; width:100%; height:100%; pointer-events:none; }
+
+/* Typing text */
+#message {
+  position:absolute;
+  bottom:5%;
+  width:90%;
+  text-align:center;
+  color:#333;
+  font-size:1rem;
+  line-height:1.4;
+  white-space:pre-line;
+  opacity:0;
+}
+
+/* Countdown */
+#timer {
+  margin-top:8px;
+  font-weight:600;
+  color:#444;
+  font-size:0.9rem;
+}
+
+/* Code editor overlay */
+#codeOverlay {
+  position:fixed;
+  bottom:0;
+  width:100%;
+  height:120px;
+  background:#111;
+  color:#0f0;
+  font-family:monospace;
+  font-size:12px;
+  overflow:auto;
+  padding:10px;
+}
+
+/* About button */
+#aboutBtn {
+  position:absolute;
+  bottom:12px;
+  right:12px;
+  font-size:12px;
+  padding:6px 12px;
+  border-radius:10px;
+  background: rgba(255,255,255,0.15);
+  color:#fff;
+  border:none;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<!-- Background hearts -->
+<canvas id="hearts"></canvas>
+
+<!-- Main canvas -->
+<div class="canvas">
+  <div class="trunk" id="trunk"></div>
+  <div id="flowers"></div>
+  <div id="message">
+    My love for you started... 💖
+    <div id="timer"></div>
+    Yellow flowers for the love of my life 🌻
+    If I could choose a safe place, it would be by your side.
+    The more time I spend with you, the more I love you.
+    — I Love You! —
+  </div>
+</div>
+
+<!-- Code editor overlay -->
+<div id="codeOverlay">
+.Flores_Amarilla {<br>
+&nbsp;&nbsp;position: absolute;<br>
+&nbsp;&nbsp;transform: scale(1.2);<br>
+&nbsp;&nbsp;font-family: "Te Amo";<br>
+}
+</div>
+
+<!-- About button -->
+<button id="aboutBtn" onclick="alert('Made with ❤️ by Emti Yaz')">About</button>
+
+<script>
+// Heart particle background
+const heartCanvas = document.getElementById('hearts');
+const ctx = heartCanvas.getContext('2d');
+heartCanvas.width = window.innerWidth;
+heartCanvas.height = window.innerHeight;
+
+let hearts = [];
+for(let i=0;i<50;i++){
+  hearts.push({
+    x: Math.random()*heartCanvas.width,
+    y: Math.random()*heartCanvas.height,
+    size: Math.random()*10+5,
+    speed: Math.random()*1+0.5,
+    opacity: Math.random()*0.5+0.2
+  });
+}
+
+function drawHearts(){
+  ctx.clearRect(0,0,heartCanvas.width,heartCanvas.height);
+  hearts.forEach(h=>{
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(255,255,255,${h.opacity})`;
+    ctx.moveTo(h.x,h.y);
+    ctx.arc(h.x,h.y,h.size,0,Math.PI*2);
+    ctx.fill();
+    h.y -= h.speed;
+    if(h.y<-10){ h.y=heartCanvas.height+10; h.x=Math.random()*heartCanvas.width; }
+  });
+  requestAnimationFrame(drawHearts);
+}
+drawHearts();
+
+// Tree trunk animation with GSAP
+gsap.to("#trunk", {height: "200px", duration:2, ease:"power2.out"});
+
+// Flowers generation
+const flowerContainer = document.getElementById("flowers");
+const flowerPositions = [];
+const heartPoints = 50;
+for(let i=0;i<heartPoints;i++){
+  const angle = Math.PI * 2 * i / heartPoints;
+  const x = 160 + 100*Math.sin(angle)*Math.sin(angle);
+  const y = 400 - 100*(Math.sin(angle)*Math.cos(angle));
+  flowerPositions.push({x,y});
+}
+
+flowerPositions.forEach((p,i)=>{
+  const f = document.createElement("div");
+  f.textContent = "🌻";
+  f.style.position="absolute";
+  f.style.left=p.x+"px";
+  f.style.top=p.y+"px";
+  f.style.fontSize="20px";
+  f.style.opacity=0;
+  flowerContainer.appendChild(f);
+  gsap.to(f,{opacity:1, scale:1.2, duration:0.5, delay:2+i*0.05, ease:"back.out(1.7)"});
+});
+
+// Typing text animation
+gsap.to("#message",{opacity:1, duration:2, delay:4});
+
+// Countdown timer
+const startDate = new Date("2025-01-01");
+function updateTimer(){
+  const now = new Date();
+  const diff = now - startDate;
+  const days = Math.floor(diff/(1000*60*60*24));
+  const hours = Math.floor((diff/(1000*60*60))%24);
+  const minutes = Math.floor((diff/(1000*60))%60);
+  const seconds = Math.floor((diff/1000)%60);
+  document.getElementById("timer").innerText = `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+}
+setInterval(updateTimer,1000);
+updateTimer();
+
+// Responsive
+window.addEventListener('resize', ()=>{
+  heartCanvas.width = window.innerWidth;
+  heartCanvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+  </html>
