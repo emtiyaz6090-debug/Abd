@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --primary: #ff4da6;
+    --glass: rgba(255,255,255,0.1);
+    --blur: blur(20px);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    background: radial-gradient(circle at top, #ff66b2, #99004d);
+}
+
+/* Floating hearts */
+.heart {
+    position: absolute;
+    color: rgba(255,255,255,0.3);
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(100vh) scale(0.5); }
+    to { transform: translateY(-10vh) scale(1.2); }
+}
+
+/* Main card */
+.app {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 340px;
+    height: 560px;
+    border-radius: 25px;
+    backdrop-filter: var(--blur);
+    background: var(--glass);
+    border: 1px solid rgba(255,255,255,0.2);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+/* Title */
+.title {
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* Tree */
+.trunk {
+    width: 5px;
+    height: 0;
+    background: #3b1f0f;
+    margin: auto;
+    animation: grow 2s ease forwards;
+}
+
+@keyframes grow {
+    to { height: 140px; }
+}
+
+/* Flowers */
+.flower {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0;
+    transform: scale(0);
+    animation: bloom 0.6s ease forwards;
+}
+
+@keyframes bloom {
+    to {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* Typing text */
+.typing {
+    margin-top: 20px;
+    min-height: 60px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Timer */
+.timer {
+    margin-top: 10px;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* Code overlay */
+.code {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 120px;
+    background: #0d0d0d;
+    color: #00ff88;
+    font-size: 12px;
+    padding: 10px;
+    font-family: monospace;
+    overflow: hidden;
+}
+</style>
+</head>
+
+<body>
+
+<div id="hearts"></div>
+
+<div class="app">
+    <div class="title">🌻 For My Love</div>
+
+    <div class="trunk"></div>
+    <div id="flowers"></div>
+
+    <div class="typing" id="text"></div>
+    <div class="timer" id="timer"></div>
+
+    <div class="code">
+        .love {<br>
+        &nbsp;&nbsp;infinite: true;<br>
+        &nbsp;&nbsp;color: heart;<br>
+        &nbsp;&nbsp;value: you;<br>
+        }
+    </div>
+</div>
+
+<script>
+
+/* HEART PARTICLES */
+function createHearts() {
+    const container = document.getElementById("hearts");
+
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤";
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+        heart.style.animationDuration = (Math.random() * 5 + 5) + "s";
+
+        container.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 8000);
+    }, 300);
+}
+createHearts();
+
+/* FLOWER HEART */
+const positions = [
+    [0,-70],[25,-90],[50,-100],[75,-90],[100,-70],
+    [110,-30],[100,10],[75,40],[50,70],[25,90],
+    [0,110],[-25,90],[-50,70],[-75,40],[-100,10],
+    [-110,-30],[-100,-70],[-75,-90],[-50,-100],[-25,-90]
+];
+
+const container = document.getElementById("flowers");
+
+positions.forEach((p,i)=>{
+    const f=document.createElement("div");
+    f.className="flower";
+    f.innerHTML="🌻";
+    f.style.left=`calc(50% + ${p[0]}px)`;
+    f.style.top=`calc(40% + ${p[1]}px)`;
+    f.style.animationDelay=i*0.08+"s";
+    container.appendChild(f);
+});
+
+/* TYPING EFFECT */
+const message = `My love for you started... 💖
+Yellow flowers for the love of my life.
+If I could choose a safe place, it would be by your side.
+The more time I spend with you, the more I love you.
+— I Love You —`;
+
+let i = 0;
+function type() {
+    if (i < message.length) {
+        document.getElementById("text").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(type, 30);
+    }
+}
+setTimeout(type, 2000);
+
+/* TIMER */
+const startDate = new Date("2025-01-01");
+
+function updateTimer() {
+    const now = new Date();
+    const diff = now - startDate;
+
+    const d = Math.floor(diff/86400000);
+    const h = Math.floor(diff/3600000)%24;
+    const m = Math.floor(diff/60000)%60;
+    const s = Math.floor(diff/1000)%60;
+
+    document.getElementById("timer").innerText =
+        `${d} days ${h} hours ${m} minutes ${s} seconds`;
+}
+
+setInterval(updateTimer,1000);
+
+</script>
+  
+</body>
+</html>
