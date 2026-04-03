@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X-Network | Real-Time Forbidden</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #020202; color: #f0f0f0; overflow-x: hidden; }
+        .glass { background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.05); }
+        .tab-content { display: none; min-height: 85vh; animation: fadeIn 0.4s ease; }
+        .active-tab { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        .chat-scroll::-webkit-scrollbar { width: 0px; }
+        .neon-border { border: 1px solid #e11d48; box-shadow: 0 0 10px rgba(225, 29, 72, 0.2); }
+    </style>
+</head>
+<body class="pb-28">
+
+    <header class="sticky top-0 z-50 glass p-4 flex justify-between items-center border-b border-rose-600/20">
+        <h1 class="text-xl font-black text-rose-600 tracking-tighter italic">X-NET<span class="text-white">.LIVE</span></h1>
+        <div class="flex items-center gap-2 bg-rose-600/10 px-3 py-1 rounded-full border border-rose-600/30">
+            <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-ping"></span>
+            <span class="text-[9px] font-bold text-rose-400 uppercase">Real-Time Sync</span>
+        </div>
+    </header>
+
+    <main class="max-w-md mx-auto p-4">
+
+        <div id="feed" class="tab-content active-tab space-y-4">
+            <h2 class="text-lg font-black italic text-rose-500">Forbidden Feed</h2>
+            
+            <div class="glass rounded-3xl overflow-hidden border border-white/5">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800" class="w-full h-44 object-cover">
+                <div class="p-4 space-y-2">
+                    <span class="text-[9px] bg-rose-600 px-2 py-0.5 rounded-full font-bold">POSITION OF THE DAY</span>
+                    <h3 class="text-sm font-bold">The Magic Mountain (অধিক আনন্দের গোপন কৌশল)</h3>
+                    <p class="text-[11px] text-gray-400">এই পজিশনে পার্টনারের গভীরতা এবং অনুভূতি ১০ গুণ বেড়ে যায়।</p>
+                </div>
+            </div>
+
+            <div class="glass p-4 rounded-3xl border-l-4 border-rose-600">
+                <h4 class="text-xs font-bold text-rose-400">🔥 Hot Tip</h4>
+                <p class="text-xs mt-1 italic">"যেকোনো সেশনে আইস কিউব ব্যবহার করুন, পার্টনারের পাগলামি দেখার মতো হবে।"</p>
+            </div>
+        </div>
+
+        <div id="affairs" class="tab-content space-y-4">
+            <h2 class="text-lg font-black italic text-rose-500">Available Affairs</h2>
+            <div class="space-y-3">
+                <div class="glass p-4 rounded-3xl flex items-center gap-4 border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=200" class="w-14 h-14 rounded-full border-2 border-rose-600">
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold">তানিয়া আক্তার (২৬)</h4>
+                        <p class="text-[10px] text-gray-500">"একটু সাহসী কাউকে খুঁজছি..."</p>
+                    </div>
+                    <button onclick="startPrivateChat('তানিয়া')" class="bg-rose-600 text-[10px] px-4 py-2 rounded-xl font-bold">MESSAGE</button>
+                </div>
+                <div class="glass p-4 rounded-3xl flex items-center gap-4 border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200" class="w-14 h-14 rounded-full border-2 border-rose-600">
+                    <div class="flex-1">
+                        <h4 class="text-sm font-bold">রিতু চৌধুরী (৩১)</h4>
+                        <p class="text-[10px] text-gray-500">"গোপনীয়তা সবার আগে।"</p>
+                    </div>
+                    <button onclick="startPrivateChat('রিতু')" class="bg-rose-600 text-[10px] px-4 py-2 rounded-xl font-bold">MESSAGE</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="chat" class="tab-content">
+            <div class="h-[72vh] glass rounded-[2.5rem] flex flex-col overflow-hidden border border-rose-600/10">
+                <div id="chat-box" class="flex-1 overflow-y-auto p-5 space-y-4 chat-scroll">
+                    <div class="text-center py-2"><span class="text-[10px] bg-white/5 px-3 py-1 rounded-full text-gray-500 uppercase tracking-widest">End-to-End Encrypted</span></div>
+                </div>
+                <div class="p-4 bg-black/40 flex gap-2">
+                    <input id="chat-input" type="text" class="flex-1 bg-white/5 border border-white/10 rounded-2xl px-5 py-3 text-sm focus:border-rose-600 outline-none" placeholder="Say something dirty...">
+                    <button onclick="sendMessage()" class="bg-rose-600 w-12 h-12 rounded-2xl flex items-center justify-center">▶</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="profile" class="tab-content space-y-6">
+            <div class="text-center">
+                <div class="relative w-32 h-32 mx-auto">
+                    <img id="p-img" src="https://via.placeholder.com/150" class="w-full h-full object-cover rounded-full border-4 border-rose-600 p-1">
+                    <input type="file" id="img-upload" class="hidden" onchange="previewImg(event)">
+                    <label for="img-upload" class="absolute bottom-1 right-1 bg-white text-black p-2 rounded-full cursor-pointer text-xs">📸</label>
+                </div>
+                <h3 id="p-display-name" class="text-xl font-black mt-3 italic text-white italic">Stranger_X</h3>
+            </div>
+
+            <div class="space-y-4 px-2">
+                <div>
+                    <label class="text-[10px] text-gray-500 uppercase font-bold ml-2">Dirty Bio</label>
+                    <textarea id="p-bio" class="w-full glass p-4 rounded-2xl text-sm border border-white/5 outline-none focus:border-rose-600" rows="2" placeholder="Tell us your darkest fantasies..."></textarea>
+                </div>
+                <div>
+                    <label class="text-[10px] text-gray-500 uppercase font-bold ml-2">Hobbies / Intersts</label>
+                    <input id="p-hobbies" type="text" class="w-full glass p-4 rounded-2xl text-sm border border-white/5 outline-none focus:border-rose-600" placeholder="e.g. BDSM, Roleplay, Long Drive">
+                </div>
+                <button onclick="saveFullProfile()" class="w-full bg-rose-600 py-4 rounded-2xl font-black text-xs uppercase tracking-widest">Update Profile</button>
+            </div>
+        </div>
+
+    </main>
+
+    <nav class="fixed bottom-0 w-full glass border-t border-white/5 flex justify-around p-5 z-50">
+        <button onclick="showTab('feed')" class="nav-btn text-rose-500"><p class="text-[9px] font-bold">FEED</p></button>
+        <button onclick="showTab('affairs')" class="nav-btn opacity-50"><p class="text-[9px] font-bold">AFFAIRS</p></button>
+        <button onclick="showTab('chat')" class="nav-btn opacity-50"><p class="text-[9px] font-bold">CHAT</p></button>
+        <button onclick="showTab('profile')" class="nav-btn opacity-50"><p class="text-[9px] font-bold">PROFILE</p></button>
+    </nav>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active-tab'));
+            document.getElementById(tabId).classList.add('active-tab');
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.replace('text-rose-500', 'opacity-50'));
+            event.currentTarget.classList.replace('opacity-50', 'text-rose-500');
+        }
+
+        // Real-time Chat Logic
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const box = document.getElementById('chat-box');
+            const val = input.value.trim();
+            if(!val) return;
+
+            box.innerHTML += `<div class="flex justify-end"><div class="bg-rose-600 p-3 rounded-2xl rounded-tr-none text-xs max-w-[80%] shadow-lg">${val}</div></div>`;
+            
+            setTimeout(() => {
+                let reply = "Uff baby! Tomar kotha gulo eto 'hot' keno? Amar ekhoni pani ber hoye jacche... 💦";
+                if(val.toLowerCase().includes("pic")) reply = "Age tumi dao, tarpor ami amar 'bad' pic ta pathabo... 😈";
+                
+                box.innerHTML += `<div class="flex justify-start"><div class="bg-white/5 border border-white/10 p-4 rounded-2xl rounded-tl-none text-xs max-w-[85%] leading-relaxed"><span class="block text-rose-500 font-bold text-[9px] mb-1">X-GODDESS AI</span>${reply}</div></div>`;
+                box.scrollTop = box.scrollHeight;
+            }, 1000);
+            input.value = "";
+        }
+
+        // Start Chat from Affairs
+        function startPrivateChat(name) {
+            showTab('chat');
+            const box = document.getElementById('chat-box');
+            box.innerHTML = `<div class="text-center py-2"><span class="text-[10px] text-rose-500 italic">Chatting with ${name}...</span></div>`;
+            setTimeout(() => {
+                box.innerHTML += `<div class="flex justify-start"><div class="bg-white/5 border border-white/10 p-4 rounded-2xl rounded-tl-none text-xs max-w-[85%]">Hey! Tumi ki asholei amar sathe parba? Khub e bad kintu ami... 😉</div></div>`;
+            }, 800);
+        }
+
+        // Profile Management
+        function previewImg(event) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                document.getElementById('p-img').src = reader.result;
+                localStorage.setItem('x_avatar', reader.result);
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function saveFullProfile() {
+            const bio = document.getElementById('p-bio').value;
+            const hobbies = document.getElementById('p-hobbies').value;
+            localStorage.setItem('x_bio', bio);
+            localStorage.setItem('x_hobbies', hobbies);
+            alert("Profile Updated. Now you're ready for the hunt!");
+        }
+
+        window.onload = () => {
+            const avatar = localStorage.getItem('x_avatar');
+            const bio = localStorage.getItem('x_bio');
+            const hob = localStorage.getItem('x_hobbies');
+            if(avatar) document.getElementById('p-img').src = avatar;
+            if(bio) document.getElementById('p-bio').value = bio;
+            if(hob) document.getElementById('p-hobbies').value = hob;
+        }
+    </script>
+</body>
+  </html>
