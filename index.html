@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queen's Private Hub</title>
+    <style>
+        :root {
+            --primary: #ff0055;
+            --glass: rgba(255, 255, 255, 0.1);
+            --bg: #0a0a0a;
+        }
+
+        body {
+            background: var(--bg);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Glassmorphism Card Style */
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        h2 { border-bottom: 2px solid var(--primary); display: inline-block; margin-bottom: 15px; }
+
+        /* Don't Stop Button */
+        .dont-stop-btn {
+            background: linear-gradient(45deg, #ff0055, #80002b);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 0 20px rgba(255, 0, 85, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 10px var(--primary); }
+            50% { transform: scale(1.05); box-shadow: 0 0 30px var(--primary); }
+            100% { transform: scale(1); box-shadow: 0 0 10px var(--primary); }
+        }
+
+        /* Stats List */
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .tag { background: var(--primary); padding: 2px 8px; border-radius: 5px; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header style="text-align: center; margin-bottom: 40px;">
+        <h1 style="letter-spacing: 5px; text-transform: uppercase;">Queen's Dashboard</h1>
+        <p style="color: #666;">Private Control Center for My Wife</p>
+    </header>
+
+    <div class="grid">
+        <div class="card">
+            <h2>📅 Daily Encounter</h2>
+            <div class="stats-item">
+                <span>Next Date:</span>
+                <span style="color: #00ffcc;">Tonight @ 10:00 PM</span>
+            </div>
+            <div class="stats-item">
+                <span>Partner(s):</span>
+                <span>Group (3 Members)</span>
+            </div>
+            <div class="stats-item">
+                <span>Location:</span>
+                <span>Penthouse Suite</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🩸 Bio Stats</h2>
+            <div class="stats-item">
+                <span>Period Cycle:</span>
+                <span class="tag">Day 14 (High Fertility)</span>
+            </div>
+            <div class="stats-item">
+                <span>Last Orgasm:</span>
+                <span>45 Minutes Ago</span>
+            </div>
+            <div class="stats-item">
+                <span>Current Mood:</span>
+                <span style="color: #ff0055;">Highly Horny (95%)</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>🔥 Sexy Tips & Tasks</h2>
+            <ul>
+                <li>Wear the metal plug for tonight's date.</li>
+                <li>No underwear until the session starts.</li>
+                <li>Record the first 5 minutes of the encounter.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div style="margin-top: 30px;">
+        <button class="dont-stop-btn" onclick="triggerAlert()">🚨 DON'T STOP 🚨</button>
+    </div>
+
+    <div class="card" style="margin-top: 30px;">
+        <h2>📚 Cuckold A-Z</h2>
+        <p><i>Deep dive into the lifestyle: Bull, Queen, Voyeur, Aftercare, and more...</i></p>
+    </div>
+</div>
+
+<script>
+    function triggerAlert() {
+        alert("NON-STOP MODE ACTIVATED! Screen will now flash and volume will increase.");
+        document.body.style.backgroundColor = "#ff0000";
+        setTimeout(() => {
+            document.body.style.backgroundColor = "#0a0a0a";
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>
